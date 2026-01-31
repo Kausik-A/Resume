@@ -3,11 +3,10 @@
 Here is my resume tailored for each job type based on the work I did as I could not fit all of them in one page. 
 
 **Download Latest Resumes:**
-- [📄 General](https://github.com/Kausik-A/Resume/raw/main/General/kausik-general-resume-latest.pdf)
-- [⚙️ Backend](https://github.com/Kausik-A/Resume/raw/main/Backend/kausik-backend-resume-latest.pdf)
-- [🤖 MLE](https://github.com/Kausik-A/Resume/raw/main/MLE/kausik-mle-resume-latest.pdf)
-- [🖥️ Infra](https://github.com/Kausik-A/Resume/raw/main/Infra/kausik-infra-resume-latest.pdf)
-- [🧪 Experiment](https://github.com/Kausik-A/Resume/raw/main/Experiment/kausik-experiment-resume-latest.pdf)
+- [General](https://github.com/Kausik-A/Resume/raw/main/General/kausik-general-resume-latest.pdf)
+- [Backend](https://github.com/Kausik-A/Resume/raw/main/Backend/kausik-backend-resume-latest.pdf)
+- [MLE](https://github.com/Kausik-A/Resume/raw/main/MLE/kausik-mle-resume-latest.pdf)
+- [Infra](https://github.com/Kausik-A/Resume/raw/main/Infra/kausik-infra-resume-latest.pdf)
 
 # Intro
 My professional resume built with LaTeX. Organized by job type for easy version trackinga as it was getting tricky to keep track of files named `resume-latest.pdf`, `resume-latest-final.pdf`, `resume-latest-final-FOREAL.pdf`... you get it 💀
@@ -28,7 +27,7 @@ Resumes are organized into job-specific folders:
 - `Backend/` - Backend engineering focus
 - `MLE/` - Machine Learning Engineer focus  
 - `Infra/` - Infrastructure/DevOps focus
-- `Experiment/` - YOLO algo prompt hacking ( ONLY FOR RESEARCH PURPOSES)
+- `Experiment/` - YOLO algo prompt hacking (ONLY FOR RESEARCH PURPOSES)
 
 Each folder contains:
 - `main.tex` - Resume content
