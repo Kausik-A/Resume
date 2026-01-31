@@ -3,10 +3,11 @@
 Here is my resume tailored for each job type based on the work I did as I could not fit all of them in one page. 
 
 **Download Latest Resumes:**
-- [General](https://github.com/Kausik-A/Resume/raw/main/General/general-resume-rendered-archive/kausik-general-2026-01-31.pdf)
-- [Backend](https://github.com/Kausik-A/Resume/raw/main/Backend/backend-resume-rendered-archive/kausik-backend-2026-01-31.pdf)
-- [MLE](https://github.com/Kausik-A/Resume/raw/main/MLE/mle-resume-rendered-archive/kausik-mle-2026-01-31.pdf)
-- [Infra](https://github.com/Kausik-A/Resume/raw/main/Infra/infra-resume-rendered-archive/kausik-infra-2026-01-31.pdf)
+- [General](https://github.com/Kausik-A/Resume/releases/download/latest/kausik-general-latest.pdf)
+- [Backend](https://github.com/Kausik-A/Resume/releases/download/latest/kausik-backend-latest.pdf)
+- [MLE](https://github.com/Kausik-A/Resume/releases/download/latest/kausik-mle-latest.pdf)
+- [Infra](https://github.com/Kausik-A/Resume/releases/download/latest/kausik-infra-latest.pdf)
+- [Experiment](https://github.com/Kausik-A/Resume/releases/download/latest/kausik-experiment-latest.pdf)
 
 # Intro
 

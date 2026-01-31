@@ -68,29 +68,7 @@ jobs:
       run: git config --global --add safe.directory /__w/Resume/Resume
 
     - name: Build ${{ matrix.folder }} resume
-      run: |
-        # Get git commit hash
-        GIT_HASH=$(git rev-parse --short HEAD)
-        if ! git diff --quiet || ! git diff --cached --quiet; then
-          GIT_HASH="${GIT_HASH}-dirty"
-        fi
-
-        cd ${{ matrix.folder }}
-        mkdir -p .tmp ${{ matrix.folder_lower }}-resume-rendered-archive
-        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-
-        OUTPUT_PDF="${{ matrix.folder_lower }}-resume-rendered-archive/kausik-${{ matrix.folder_lower }}-$(date +%Y-%m-%d).pdf"
-        cp .tmp/main.pdf "$OUTPUT_PDF"
-
-        # Embed git commit hash in PDF metadata
-        exiftool -q -overwrite_original \
-          -Subject="git:${GIT_HASH}" \
-          -Keywords="commit-${GIT_HASH}" \
-          -Author="Kausik Amancherla" \
-          "$OUTPUT_PDF"
-
-        echo "PDF built: $OUTPUT_PDF"
-        echo "Git hash embedded: ${GIT_HASH}"
+      run: ./build.sh ${{ matrix.folder }}
     
     - name: Upload ${{ matrix.folder }} resume artifact
       uses: actions/upload-artifact@v4
@@ -135,5 +113,6 @@ jobs:
           - [kausik-backend-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-backend-latest.pdf)
           - [kausik-mle-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-mle-latest.pdf)
           - [kausik-infra-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-infra-latest.pdf)
+          - [kausik-experiment-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-experiment-latest.pdf)
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

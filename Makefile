@@ -1,25 +1,12 @@
 # Build resume PDFs for all job types
-.PHONY: all General Backend MLE Infra Experiment clean
+FOLDERS := General Backend MLE Infra Experiment
 
-# Build all folders
-all: General Backend MLE Infra Experiment
+all: $(FOLDERS)
 
-# Individual folder builds
-General:
-	./build.sh General
+$(FOLDERS):
+	./build.sh $@
 
-Backend:
-	./build.sh Backend
-
-MLE:
-	./build.sh MLE
-
-Infra:
-	./build.sh Infra
-
-Experiment:
-	./build.sh Experiment
-
-# Clean build artifacts
 clean:
-	rm -rf General/.tmp Backend/.tmp MLE/.tmp Infra/.tmp Experiment/.tmp
+	rm -rf */.tmp
+
+.PHONY: all $(FOLDERS) clean
