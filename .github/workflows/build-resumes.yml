@@ -70,11 +70,14 @@ jobs:
     - name: Build ${{ matrix.folder }} resume
       run: ./build.sh ${{ matrix.folder }}
     
+    - name: Copy PDF to workspace root
+      run: cp ${{ matrix.folder }}/${{ matrix.folder_lower }}-resume-rendered-archive/*.pdf .
+
     - name: Upload ${{ matrix.folder }} resume artifact
       uses: actions/upload-artifact@v4
       with:
         name: kausik-${{ matrix.folder }}-resume
-        path: ${{ matrix.folder }}/${{ matrix.folder_lower }}-resume-rendered-archive/*.pdf
+        path: kausik-${{ matrix.folder_lower }}-*.pdf
 
   release:
     needs: build
@@ -90,10 +93,8 @@ jobs:
       run: |
         cd ./artifacts
         for file in *.pdf; do
-          if [[ $file =~ kausik-([a-z]+)-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.pdf ]]; then
-            folder="${BASH_REMATCH[1]}"
-            mv "$file" "kausik-${folder}-latest.pdf"
-            echo "Renamed $file to kausik-${folder}-latest.pdf"
+          if [[ $file =~ kausik-([a-z]+)-[0-9]{4}-[0-9]{2}-[0-9]{2}\.pdf ]]; then
+            mv "$file" "kausik-${BASH_REMATCH[1]}-latest.pdf"
           fi
         done
         ls -la
