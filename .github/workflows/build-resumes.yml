@@ -19,7 +19,17 @@ jobs:
       image: texlive/texlive:latest
     strategy:
       matrix:
-        folder: [General, Backend, MLE, Infra, Experiment]
+        include:
+          - folder: General
+            folder_lower: general
+          - folder: Backend
+            folder_lower: backend
+          - folder: MLE
+            folder_lower: mle
+          - folder: Infra
+            folder_lower: infra
+          - folder: Experiment
+            folder_lower: experiment
       fail-fast: false
     
     steps:
@@ -40,17 +50,16 @@ jobs:
     - name: Build ${{ matrix.folder }} resume
       run: |
         cd ${{ matrix.folder }}
-        FOLDER_LOWER=$(echo "${{ matrix.folder }}" | tr '[:upper:]' '[:lower:]')
-        mkdir -p .tmp ${FOLDER_LOWER}-resume-rendered-archive
+        mkdir -p .tmp ${{ matrix.folder_lower }}-resume-rendered-archive
         pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf ${FOLDER_LOWER}-resume-rendered-archive/kausik-${FOLDER_LOWER}-$(date +%Y-%m-%d).pdf
-        echo "PDF built in ${{ matrix.folder }}/${FOLDER_LOWER}-resume-rendered-archive/"
+        cp .tmp/main.pdf ${{ matrix.folder_lower }}-resume-rendered-archive/kausik-${{ matrix.folder_lower }}-$(date +%Y-%m-%d).pdf
+        echo "PDF built in ${{ matrix.folder }}/${{ matrix.folder_lower }}-resume-rendered-archive/"
     
     - name: Upload ${{ matrix.folder }} resume artifact
       uses: actions/upload-artifact@v4
       with:
         name: kausik-${{ matrix.folder }}-resume
-        path: ${{ matrix.folder }}/${{ matrix.folder }}-resume-rendered-archive/*.pdf
+        path: ${{ matrix.folder }}/${{ matrix.folder_lower }}-resume-rendered-archive/*.pdf
 
   release:
     needs: build
