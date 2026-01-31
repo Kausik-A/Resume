@@ -37,7 +37,7 @@ jobs:
       with:
         ref: ${{ steps.determine_ref.outputs.ref }}
     
-    - name: Build and upload ${{ matrix.folder }} resume
+    - name: Build ${{ matrix.folder }} resume
       run: |
         cd ${{ matrix.folder }}
         FOLDER_LOWER=$(echo "${{ matrix.folder }}" | tr '[:upper:]' '[:lower:]')
@@ -51,3 +51,32 @@ jobs:
       with:
         name: kausik-${{ matrix.folder }}-resume
         path: ${{ matrix.folder }}/${{ matrix.folder }}-resume-rendered-archive/*.pdf
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./artifacts
+        merge-multiple: true
+    
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./artifacts/*.pdf
+        name: Resume PDFs - ${{ github.run_id }}
+        tag_name: resumes-${{ github.run_id }}
+        body: |
+          Resume PDFs generated from commit ${{ github.sha }}
+          
+          ## Download Individual PDFs:
+          - kausik-general-*.pdf
+          - kausik-backend-*.pdf
+          - kausik-mle-*.pdf
+          - kausik-infra-*.pdf
+          - kausik-experiment-*.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
