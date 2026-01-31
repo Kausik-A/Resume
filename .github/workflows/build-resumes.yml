@@ -56,6 +56,9 @@ jobs:
         apt-get update
         apt-get install -y libimage-exiftool-perl
 
+    - name: Configure git safe directory
+      run: git config --global --add safe.directory /__w/Resume/Resume
+
     - name: Build ${{ matrix.folder }} resume
       run: |
         # Get git commit hash
