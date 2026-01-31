@@ -1,6 +1,16 @@
 name: Build Resume PDFs from LaTeX
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'General/**'
+      - 'Backend/**'
+      - 'MLE/**'
+      - 'Infra/**'
+      - 'Experiment/**'
+      - 'build.sh'
   workflow_dispatch:
     inputs:
       branch:
@@ -42,10 +52,12 @@ jobs:
       run: |
         if [ -n "${{ github.event.inputs.commit_id }}" ]; then
           echo "ref=${{ github.event.inputs.commit_id }}" >> $GITHUB_OUTPUT
-        else
+        elif [ -n "${{ github.event.inputs.branch }}" ]; then
           echo "ref=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+        else
+          echo "ref=${{ github.ref }}" >> $GITHUB_OUTPUT
         fi
-    
+
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
