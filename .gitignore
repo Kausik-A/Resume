@@ -1,1 +1,7 @@
 .tmp
+.env*
+*.key
+*.pem
+*.p12
+*.cert
+.DS_Store
