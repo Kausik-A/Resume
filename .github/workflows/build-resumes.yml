@@ -8,19 +8,28 @@ on:
         required: true
         default: 'main'
       commit_id:
-        description: 'Commit ID (SHA) to checkout'
-        required: true
-        default: 'HEAD'
+        description: 'Commit ID (SHA) to checkout (optional - uses latest if empty)'
+        required: false
+        default: ''
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repository at specified commit
+    - name: Determine checkout ref
+      id: determine_ref
+      run: |
+        if [ -n "${{ github.event.inputs.commit_id }}" ]; then
+          echo "ref=${{ github.event.inputs.commit_id }}" >> $GITHUB_OUTPUT
+        else
+          echo "ref=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.inputs.commit_id }}
+        ref: ${{ steps.determine_ref.outputs.ref }}
         
     - name: Install LaTeX dependencies
       run: |
@@ -54,6 +63,12 @@ jobs:
         cd Infra
         pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
         cp .tmp/main.pdf infra-resume-rendered-archive/kausik-infra-$(date +%Y-%m-%d).pdf
+        
+    - name: Build Experiment resume
+      run: |
+        cd Experiment
+        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+        cp .tmp/main.pdf experiment-resume-rendered-archive/kausik-experiment-$(date +%Y-%m-%d).pdf
       
     - name: Upload General resume artifact
       uses: actions/upload-artifact@v4
@@ -78,3 +93,9 @@ jobs:
       with:
         name: kausik-infra-resume
         path: Infra/infra-resume-rendered-archive/*.pdf
+        
+    - name: Upload Experiment resume artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kausik-experiment-resume
+        path: Experiment/experiment-resume-rendered-archive/*.pdf
