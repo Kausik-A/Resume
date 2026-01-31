@@ -35,7 +35,19 @@ The build script (`build.sh`) expects MiKTeX installed at `$HOME/bin` in PATH. I
 The workflow `.github/workflows/build-resumes.yml` is manually triggered via `workflow_dispatch` and:
 - Builds all resume types in parallel using a matrix strategy
 - Creates a GitHub release with all PDFs renamed to `-latest.pdf` format
-- Uses the `texlive/texlive:latest` Docker container (Linux-based)
+- Uses a custom lightweight Docker image (`ghcr.io/kausik-a/resume-builder:latest`)
+  - Based on Debian slim with only required LaTeX packages
+  - Pre-installed exiftool for metadata embedding
+  - ~500MB vs 8+ GB for full TeXLive image
+  - Reduces container initialization time from ~103s to ~20-30s
+
+### Custom Docker Image
+
+The custom Docker image is defined in `Dockerfile` and automatically built by `.github/workflows/build-docker-image.yml`:
+- Triggers on changes to Dockerfile or manually
+- Builds and pushes to GitHub Container Registry (ghcr.io)
+- Includes: texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, exiftool, git
+- Tagged as `latest` and with commit SHA
 
 ## Architecture
 
