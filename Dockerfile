@@ -11,6 +11,7 @@ RUN apt-get update && \
     texlive-latex-extra \
     texlive-fonts-recommended \
     texlive-fonts-extra \
+    lmodern \
     # For PDF metadata manipulation
     libimage-exiftool-perl \
     # Git for commit hash extraction
