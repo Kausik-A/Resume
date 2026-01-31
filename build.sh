@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 export PATH="$HOME/bin:$PATH"
 
@@ -42,8 +43,14 @@ mkdir -p "$ARCHIVE_DIR"
 
 # Build PDF
 cd "$FOLDER" || exit 1
-pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex || true
 cd .. || exit 1
+
+# Verify PDF was generated
+if [ ! -f "${FOLDER}/.tmp/main.pdf" ]; then
+    echo "Error: pdflatex failed to produce output PDF for $FOLDER"
+    exit 1
+fi
 
 # Copy to archive with date-stamped name
 cp "${FOLDER}/.tmp/main.pdf" "$OUTPUT_NAME"
