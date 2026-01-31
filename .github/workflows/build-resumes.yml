@@ -15,6 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
     
     steps:
     - name: Determine checkout ref
@@ -31,27 +33,6 @@ jobs:
       with:
         ref: ${{ steps.determine_ref.outputs.ref }}
     
-    - name: Cache LaTeX dependencies
-      id: cache-latex
-      uses: actions/cache@v3
-      with:
-        path: |
-          /var/cache/apt/archives
-          /usr/share/texlive
-        key: ${{ runner.os }}-latex-${{ hashFiles('.github/workflows/build-resumes.yml') }}
-        restore-keys: |
-          ${{ runner.os }}-latex-
-    
-    - name: Install LaTeX dependencies
-      if: steps.cache-latex.outputs.cache-hit != 'true'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          texlive-latex-base \
-          texlive-latex-extra \
-          texlive-fonts-recommended \
-          texlive-fonts-extra
-        
     - name: Build General resume
       run: |
         cd General
