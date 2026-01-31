@@ -1,0 +1,80 @@
+name: Build Resume PDFs from LaTeX
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to checkout'
+        required: true
+        default: 'main'
+      commit_id:
+        description: 'Commit ID (SHA) to checkout'
+        required: true
+        default: 'HEAD'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository at specified commit
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.commit_id }}
+        
+    - name: Install LaTeX dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          texlive-latex-base \
+          texlive-latex-extra \
+          texlive-fonts-recommended \
+          texlive-fonts-extra
+        
+    - name: Build General resume
+      run: |
+        cd General
+        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+        cp .tmp/main.pdf general-resume-rendered-archive/kausik-general-$(date +%Y-%m-%d).pdf
+        
+    - name: Build Backend resume
+      run: |
+        cd Backend
+        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+        cp .tmp/main.pdf backend-resume-rendered-archive/kausik-backend-$(date +%Y-%m-%d).pdf
+        
+    - name: Build MLE resume
+      run: |
+        cd MLE
+        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+        cp .tmp/main.pdf mle-resume-rendered-archive/kausik-mle-$(date +%Y-%m-%d).pdf
+        
+    - name: Build Infra resume
+      run: |
+        cd Infra
+        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
+        cp .tmp/main.pdf infra-resume-rendered-archive/kausik-infra-$(date +%Y-%m-%d).pdf
+      
+    - name: Upload General resume artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kausik-general-resume
+        path: General/general-resume-rendered-archive/*.pdf
+        
+    - name: Upload Backend resume artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kausik-backend-resume
+        path: Backend/backend-resume-rendered-archive/*.pdf
+        
+    - name: Upload MLE resume artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kausik-mle-resume
+        path: MLE/mle-resume-rendered-archive/*.pdf
+        
+    - name: Upload Infra resume artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kausik-infra-resume
+        path: Infra/infra-resume-rendered-archive/*.pdf
