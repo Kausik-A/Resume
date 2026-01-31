@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: texlive/texlive:latest
+    strategy:
+      matrix:
+        folder: [General, Backend, MLE, Infra, Experiment]
+      fail-fast: false
     
     steps:
     - name: Determine checkout ref
@@ -33,67 +37,17 @@ jobs:
       with:
         ref: ${{ steps.determine_ref.outputs.ref }}
     
-    - name: Build General resume
+    - name: Build and upload ${{ matrix.folder }} resume
       run: |
-        cd General
-        mkdir -p .tmp general-resume-rendered-archive
+        cd ${{ matrix.folder }}
+        FOLDER_LOWER=$(echo "${{ matrix.folder }}" | tr '[:upper:]' '[:lower:]')
+        mkdir -p .tmp ${FOLDER_LOWER}-resume-rendered-archive
         pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf general-resume-rendered-archive/kausik-general-$(date +%Y-%m-%d).pdf
-        
-    - name: Build Backend resume
-      run: |
-        cd Backend
-        mkdir -p .tmp backend-resume-rendered-archive
-        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf backend-resume-rendered-archive/kausik-backend-$(date +%Y-%m-%d).pdf
-        
-    - name: Build MLE resume
-      run: |
-        cd MLE
-        mkdir -p .tmp mle-resume-rendered-archive
-        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf mle-resume-rendered-archive/kausik-mle-$(date +%Y-%m-%d).pdf
-        
-    - name: Build Infra resume
-      run: |
-        cd Infra
-        mkdir -p .tmp infra-resume-rendered-archive
-        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf infra-resume-rendered-archive/kausik-infra-$(date +%Y-%m-%d).pdf
-        
-    - name: Build Experiment resume
-      run: |
-        cd Experiment
-        mkdir -p .tmp experiment-resume-rendered-archive
-        pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf experiment-resume-rendered-archive/kausik-experiment-$(date +%Y-%m-%d).pdf
-      
-    - name: Upload General resume artifact
+        cp .tmp/main.pdf ${FOLDER_LOWER}-resume-rendered-archive/kausik-${FOLDER_LOWER}-$(date +%Y-%m-%d).pdf
+        echo "PDF built in ${{ matrix.folder }}/${FOLDER_LOWER}-resume-rendered-archive/"
+    
+    - name: Upload ${{ matrix.folder }} resume artifact
       uses: actions/upload-artifact@v4
       with:
-        name: kausik-general-resume
-        path: General/general-resume-rendered-archive/*.pdf
-        
-    - name: Upload Backend resume artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: kausik-backend-resume
-        path: Backend/backend-resume-rendered-archive/*.pdf
-        
-    - name: Upload MLE resume artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: kausik-mle-resume
-        path: MLE/mle-resume-rendered-archive/*.pdf
-        
-    - name: Upload Infra resume artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: kausik-infra-resume
-        path: Infra/infra-resume-rendered-archive/*.pdf
-        
-    - name: Upload Experiment resume artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: kausik-experiment-resume
-        path: Experiment/experiment-resume-rendered-archive/*.pdf
+        name: kausik-${{ matrix.folder }}-resume
+        path: ${{ matrix.folder }}/${{ matrix.folder }}-resume-rendered-archive/*.pdf
