@@ -6,6 +6,12 @@ export PATH="$HOME/bin:$PATH"
 NAME="kausik"
 DATE=$(date +%Y-%m-%d)
 
+# Get git commit hash with dirty flag if needed
+GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    GIT_HASH="${GIT_HASH}-dirty"
+fi
+
 # Validate folder argument
 FOLDER="$1"
 if [ -z "$FOLDER" ]; then
@@ -41,6 +47,19 @@ cd .. || exit 1
 
 # Copy to archive with date-stamped name
 cp "${FOLDER}/.tmp/main.pdf" "$OUTPUT_NAME"
+
+# Embed git commit hash in PDF metadata
+if command -v exiftool &> /dev/null; then
+    exiftool -q -overwrite_original \
+        -Subject="git:${GIT_HASH}" \
+        -Keywords="commit-${GIT_HASH}" \
+        -Author="Kausik Amancherla" \
+        "$OUTPUT_NAME"
+    echo "Embedded git hash: ${GIT_HASH}"
+else
+    echo "Warning: exiftool not found. Skipping metadata embedding."
+    echo "Install with: brew install exiftool"
+fi
 
 # Create/update symlink to latest version (relative path)
 cd "$FOLDER" || exit 1

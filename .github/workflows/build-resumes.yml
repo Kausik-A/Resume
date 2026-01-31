@@ -50,14 +50,36 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: ${{ steps.determine_ref.outputs.ref }}
-    
+
+    - name: Install exiftool
+      run: |
+        apt-get update
+        apt-get install -y libimage-exiftool-perl
+
     - name: Build ${{ matrix.folder }} resume
       run: |
+        # Get git commit hash
+        GIT_HASH=$(git rev-parse --short HEAD)
+        if ! git diff --quiet || ! git diff --cached --quiet; then
+          GIT_HASH="${GIT_HASH}-dirty"
+        fi
+
         cd ${{ matrix.folder }}
         mkdir -p .tmp ${{ matrix.folder_lower }}-resume-rendered-archive
         pdflatex -interaction=nonstopmode -output-directory=.tmp main.tex
-        cp .tmp/main.pdf ${{ matrix.folder_lower }}-resume-rendered-archive/kausik-${{ matrix.folder_lower }}-$(date +%Y-%m-%d).pdf
-        echo "PDF built in ${{ matrix.folder }}/${{ matrix.folder_lower }}-resume-rendered-archive/"
+
+        OUTPUT_PDF="${{ matrix.folder_lower }}-resume-rendered-archive/kausik-${{ matrix.folder_lower }}-$(date +%Y-%m-%d).pdf"
+        cp .tmp/main.pdf "$OUTPUT_PDF"
+
+        # Embed git commit hash in PDF metadata
+        exiftool -q -overwrite_original \
+          -Subject="git:${GIT_HASH}" \
+          -Keywords="commit-${GIT_HASH}" \
+          -Author="Kausik Amancherla" \
+          "$OUTPUT_PDF"
+
+        echo "PDF built: $OUTPUT_PDF"
+        echo "Git hash embedded: ${GIT_HASH}"
     
     - name: Upload ${{ matrix.folder }} resume artifact
       uses: actions/upload-artifact@v4
