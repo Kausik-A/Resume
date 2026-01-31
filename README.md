@@ -9,6 +9,7 @@ Here is my resume tailored for each job type based on the work I did as I could 
 - [Infra](https://github.com/Kausik-A/Resume/raw/main/Infra/infra-resume-rendered-archive/kausik-infra-2026-01-31.pdf)
 
 # Intro
+
 My professional resume built with LaTeX. Organized by job type for easy version trackinga as it was getting tricky to keep track of files named `resume-latest.pdf`, `resume-latest-final.pdf`, `resume-latest-final-FOREAL.pdf`... you get it 💀
 
 ## Why hyper optimize?
@@ -76,14 +77,7 @@ flowchart LR
 make
 
 # Build specific folder
-make General      # Build General resume
-make Backend      # Build Backend resume
-make MLE          # Build MLE resume
-make Infra        # Build Infra resume
-
-# Or use build.sh directly
-./build.sh General
-./build.sh Backend
-./build.sh MLE
-./build.sh Infra
-```
+make General      
+make Backend      
+make MLE          
+make Infra
