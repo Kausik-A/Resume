@@ -127,6 +127,5 @@ jobs:
           - [kausik-backend-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-backend-latest.pdf)
           - [kausik-mle-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-mle-latest.pdf)
           - [kausik-infra-latest.pdf](https://github.com/${{ github.repository }}/releases/download/latest/kausik-infra-latest.pdf)
-        make_latest: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
