@@ -15,6 +15,8 @@ RUN apt-get update && \
     libimage-exiftool-perl \
     # Git for commit hash extraction
     git \
+    # SSL certificates for HTTPS git operations
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
