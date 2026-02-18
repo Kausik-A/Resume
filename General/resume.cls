@@ -19,8 +19,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesClass{resume}[2010/07/10 v0.9 Resume class]
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-% \renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault}
 \LoadClass[11pt,letterpaper]{article} % Font size and paper type
 
 \usepackage[parfill]{parskip} % Remove paragraph indentation
@@ -36,7 +35,7 @@
 \def \name#1{\def\@name{#1}} % Defines the \name command to set name
 \def \@name {} % Sets \@name to empty by default
 
-\def \addressSep {\hspace{0.5em}$\bullet$\hspace{0.5em}} % Set default address separator to a bullet with spacing
+\def \addressSep {\hspace{0.5em}|\hspace{0.5em}} % Set default address separator to a vertical bar with spacing
 
 % One, two or three address lines can be specified
 \let \@addressone \relax
@@ -68,7 +67,7 @@
 % \printname is used to print the name as a page header
 \def \printname {
   \begingroup
-    \hfil{\namesize \bf {\fontfamily{lmss}\selectfont \@name }}\hfil
+    \hfil{\namesize \bfseries \@name}\hfil
     \nameskip
   \endgroup
 }
@@ -93,7 +92,7 @@
 %	SECTION FORMATTING
 %----------------------------------------------------------------------------------------
 
-\def\Vhrulefill{\leaders\hrule height 1ex depth \dimexpr 1pt-1ex\hfill\kern -30pt}
+\def\Vhrulefill{\leaders\hrule height 0.5pt\hfill\kern 0pt}
 
 % Defines the rSection environment for the large sections within the CV
 \newenvironment{rSection}[1]{ % 1 input argument - section name
@@ -121,8 +120,8 @@
 }
 
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
-\def\namesize{\huge} % Size of the name at the top of the document
-\def\addressskip{\smallskip} % The space between the two address (or phone/email) lines
+\def\namesize{\LARGE} % Size of the name at the top of the document
+\def\addressskip{\vspace{0pt}} % The space between the two address (or phone/email) lines
 \def\sectionlineskip{\medskip} % The space above the horizontal line for each section
-\def\nameskip{\bigskip} % The space after your name at the top
+\def\nameskip{\smallskip} % The space after your name at the top
 \def\sectionskip{\medskip} % The space after the heading section

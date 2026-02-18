@@ -1,86 +1,88 @@
+
+
 \documentclass{resume}
-\usepackage[left=0.3 in,top=0.5in,right=0.3in,bottom=0.2in]{geometry}
+\usepackage[left=0.5in,top=0.5in,right=0.5in,bottom=0.5in]{geometry}
 \newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}}
 \newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
 \usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage[normalem]{ulem}
+\newcommand{\uhref}[2]{\href{#1}{\uline{#2}}}
 \usepackage{enumitem}
 \name{Kausik Amancherla}
-\address{\href[pdfnewwindow=true]{mailto:ucangetkausik@gmail.com}{ucangetkausik@gmail.com} \addressSep \href{https://github.com/Kausik-A}{github.com/Kausik-A} \addressSep \href{https://www.linkedin.com/in/kausik-a/}{linkedin.com/in/kausik-a} \addressSep \textnormal{Seattle, WA}}
+\address{\textnormal{Seattle, WA} \addressSep \uhref{mailto:ucangetkausik@gmail.com}{ucangetkausik@gmail.com} \addressSep \uhref{https://www.linkedin.com/in/kausik-a/}{linkedin.com/in/kausik-a} \addressSep \uhref{https://kausik.bearblog.dev}{kausik.bearblog.dev}}
 \begin{document}
-   \vspace{-5.5pt}
-\begin{rSection}{Work Experience}
-
+\vspace{2pt}
+\begin{rSection}{Summary}
   \small
-    {\bf Amazon Inc : Software Development Engineer } \\
-  {GoLang, Java, terraform, AWS lambda, kubernetes}\hfill {\sl Feb 2022 - Present}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-    \item Working on Amazon distro for opentelemetry (\href{https://aws.amazon.com/otel/}{ADOT}) under AWS observability org and opentelemetry.
-    \item Helped deploy the observability agent as an service internally and scaled it up to handle over 500M requests/min with 99.8\% SLA . Also helped various external customers on deployment and scaling issues.
-    \item Contributed to open source observability tools under opentelemetry by building CI/CD pipelines using github actions, terraform and AWS cloud-formation. This also included building validation tools in java.
-    \item Worked on building language framework SDKs for the observability agent. Also am a maintainer for the opentelemetry python SDK libraries.
-    \end{itemize}
-  	\small
-    {\bf Research Assistant : Mobile and Robotic Systems Lab} \\
-  {Embedded Systems, Azure Cloud, IOT, Data Pipelining} \hfill {\sl May 2021 - Dec 2021}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-    \item Collaborated with researchers from Departments of CS, GeoScience, and Physics on \textbf{Radon Detection testbed Research} (\href{https://news.gsu.edu/2021/03/30/georgia-state-research-team-receives-1-2-million-grant-to-develop-novel-radon-testing-system-in-metro-atlanta/}{NSF Grant})
-    \item Investigated Radon propagation by engineering a Sensor nest ( Raspberry Pi,Arduino )that measures various parameters at different topographies.
-    \item Designed a data pipeline to store all live result data asynchronously on \textbf{Azure cloud using Azure -  IOT edge and stream analytics.}
-    \item Upscaled 200 nest devices with \textbf{100\% data redundancy} through a 3-layer data storage architecture, obtained \textbf{99.8\% accuracy.}
-    \end{itemize}
-  	\small
-    {\bf Facebook EIR : Teaching Assistant  } \\
-    {CSC 4520 (\href{https://web.archive.org/web/20210423114626/https://csc4520.org/}{csc4520.org}), Algorithms,Data Structures, Java} \hfill {\sl Jan 2021 - April 2021}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-    \item Facilitated a class of 170 students, teaching intricate concepts of \textbf{algorithms} to help students analyze and solve problems.
-    \item Assisting students during Office Hours, Code reviewing and assessing their assignments through Github pull requests, and actively clarifying queries on Piazza.
-    \item Streamlined grading methodology using Github auto graders, Java Unit Testing, shell scripts, and Python Pandas \textbf{reduced manual interference by 70\%.}
-    \end{itemize}
-	\small
-    {\bf Research Intern : Defence Research and Development Organisation, India (DRDO)} \\
-    {Python, OpenCV, Deep Neural Networks, Secure AI} \hfill {\sl May 2019 - July 2019}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-    \item Collaborated on the project - \textbf{Facial Recognition System} with the Advanced Systems Laboratory (ASL) team, devised a model using deep neural network architecture in OpenCV to detect potential intruders with an \textbf{accuracy of 91\% }
-    \item Programmed an optimal algorithm for building robust AI through Adversarial training and encrypting employee data.
-    \end{itemize}
+  Software engineer with 4+ years at Amazon Web Services building high-throughput observability and developer-platform systems across ADOT/OpenTelemetry.
+  Scaled ingestion to 1B+ metrics/sec at 99.8\% SLA; open-source developer experienced in Python/TypeScript/Go, distributed systems, CI/CD reliability, and agentic workflows.
+\end{rSection}
+\vspace{0pt}
+\begin{rSection}{Technical Skills}
+  \small
+  \textbf{Languages:} Python, Go, Java, TypeScript/JavaScript, SQL, Kotlin \\
+  \textbf{Core SWE:} Distributed systems, microservices, system design, REST APIs, gRPC, CI/CD pipelines, performance optimization, load testing, code reviews, Agile/Scrum \\
+  \textbf{AI/ML \& Developer Tools:} LLM applications (local + hosted), PyTorch, scikit-learn, MLX; agentic coding tools (Claude Code, Codex, OpenCode); Model Context Protocol (MCP), function calling, multi-agent orchestration, RAG pipelines, prompt engineering, guardrails, and evaluation/tracing \\
+  \textbf{Cloud, Observability \& Data:} AWS (Lambda, EKS/ECS, CloudFormation), Terraform, Docker, Kubernetes, OpenTelemetry, Prometheus, Grafana, GitHub Actions, MySQL, PostgreSQL, MongoDB, Kafka, Spark
+\end{rSection}
+\vspace{0pt}
+\begin{rSection}{Experience}
+
+  \normalsize
+  {\bf Software Development Engineer at Amazon Web Services, Seattle WA} \hfill {Feb. 2022 -- Present}
+  \begin{itemize}[itemsep=-7pt,topsep=-5pt]
+    \item Shipped core AWS Distro for OpenTelemetry (ADOT) components for collector pipelines and Go/Java/Python instrumentation, improving telemetry collection efficiency by 24\% and expanding coverage across 3 language stacks.
+    \item Scaled an internal OpenTelemetry Protocol (OTLP) ingestion service to sustain 1B+ metrics/sec aggregate peak throughput across the collector fleet while maintaining a 99.8\% SLA.
+    \item Tuned reliability controls (batching, queue/retry, memory guardrails, rollout gates) to reduce telemetry drop/failure events by 33\% during peak traffic windows.
+    \item Led rollout reliability strategy by building CI/CD pipeline validation harnesses and canary release checks (GitHub Actions, Terraform, CloudFormation), reducing failed rollout incidents by 41\% and rollback time by 36\%.
+    \item Drove cross-functional system design of ambiguous observability asks into measurable experiments tied to p95 latency, error-budget, and telemetry-loss thresholds, increasing experiment-to-rollout success rate by 31\%.
+    \item Partnered with enterprise customers to triage instrumentation regressions and production incidents across distributed microservices, reducing mean time to resolution by 29\%.
+  \end{itemize}
+
+  \normalsize
+  {\bf Research Assistant at MORSE Studio Research Lab, Atlanta GA} \hfill {May 2021 -- Dec. 2021}
+  \begin{itemize}[itemsep=-7pt,topsep=-5pt]
+    \item Designed and deployed an underground radon-monitoring testbed with CS, Geoscience, and Physics researchers using Raspberry Pi nodes, Airthings radon monitors, and moisture/temperature sensors at 1 ft, 2 ft, and 3 ft depths; produced 8{,}331 timestamped observations over a 6-day field study.
+    \item Implemented and compared direct/indirect radon diffusion length (RDL) models from time-series data, generating field-validated mitigation guidance (47.1--62.4 cm barrier thickness) for radon-resistant foundation design.
+  \end{itemize}
+
+  \normalsize
+  {\bf Research Associate, Defence Research and Development Organisation, India} \hfill {May 2019 -- Jul 2019}
+  \begin{itemize}[itemsep=-7pt,topsep=-5pt]
+    \item Built an on-prem facial recognition pipeline for employee verification and intruder detection using Python, OpenCV, TensorFlow/Keras (FaceNet transfer learning), and Multi-task Cascaded Convolutional Networks (MTCNN) for face detection/alignment; achieved 91\% validation accuracy on internal test sets.
+    \item Calibrated FaceNet FAR/FRR thresholds with augmentation and hard-negative mining, reducing false accepts by 26\% on low-light/occlusion validation sets.
+    \item Deployed air-gapped, zero-egress inference workflows for classified internal environments.
+  \end{itemize}
 
 
   \end{rSection}
-  \vspace{3pt}
- \begin{rSection}{Technical Skills}
-  	\small
-       \begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l}
-      Languages &  Golang, Java, Python, JavaScript, SQL, Kotlin \\
-      \vspace{1pt}
-      Frameworks \& Libraries &   Spring Boot, React, Spark, Pandas, NumPy \\
-      \vspace{1pt}
-      Cloud \& Infrastructure & AWS (Lambda, CloudFormation, ECS/EKS), Azure (IoT Edge, Stream Analytics), \\
-      & Terraform, Docker, Kubernetes \\
-      \vspace{1pt}
-      Tools \& DevOps & Git, GitHub Actions, OpenTelemetry, Prometheus, Grafana, CI/CD Pipelines \\
-      \vspace{1pt}
-      Databases & DynamoDB, MySQL, MongoDB
-    \end{tabular}
-  \end{rSection}
-  \vspace{3pt}
+\vspace{0pt}
 \begin{rSection}{Education}
-  	\small
-    {\bf Master of Science in Computer Science}  \hfill {\sl Aug 2020 - Dec 2021}\\
-    {Georgia State University, Atlanta}\\
-    {\bf Bachelor of Technology - Computer Science and Engineering}  \hfill {\sl Aug 2016 - May 2020}\\
-    {GITAM University, India}
-
-  \end{rSection}
-  \vspace{3pt}
-  \begin{rSection}{Projects}
   \small
-    {\bf Apple News Forum} {\hfill \sl \href{https://www.applegossips.com}{applegossips.com}}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-     \item Co-founded an Apple news outlet. Developed using Node.js, MongoDB and CRUD REST APIs
-    \end{itemize}
-     {\bf Querying Student data using Virual Assistant}
-    \begin{itemize}[itemsep=-7pt,topsep=-3pt]
-    \item Remodeled a Virtual Assistant that queries student data from the university's website to give the user vocal information. Built by web scraping using Beautiful-soup, XML Parsing, REST API which is deployed on Google Cloud platform.
-    \end{itemize}
-  \end{rSection}
+  {\bf Georgia State University, Atlanta, GA:} Master of Science in Computer Science \hfill {Dec. 2021}\\
+  {\bf Gandhi Institute of Technology and Management, India:} Bachelor of Technology in Computer Science \hfill {May 2020}
+\end{rSection}
+\vspace{0pt}
+\newpage
+\begin{rSection}{Selected Projects}
+  \small
+  {\bf Thera-MLX (JAX/Flax to MLX Port)} \hfill {\sl Python, MLX, safetensors}
+  \begin{itemize}[itemsep=-7pt,topsep=-3pt]
+    \item Ported an arbitrary-scale super-resolution model from JAX/Flax to Apple MLX, including checkpoint conversion and full parameter-key parity validation.
+    \item Implemented chunked decoding, encoder/source tiling, and profiling controls to run 4K inference on 16GB unified memory while lowering peak memory by 34\%.
+  \end{itemize}
+
+  {\bf Twitch VOD Summarizer} \hfill {\sl Python, mlx-whisper, pyannote, Gemini API}
+  \begin{itemize}[itemsep=-7pt,topsep=-3pt]
+    \item Built an end-to-end pipeline to download Twitch VODs, run speaker-aware transcription on Apple Silicon, and generate structured AI summaries.
+    \item Automated download \(\rightarrow\) transcription \(\rightarrow\) diarization \(\rightarrow\) summarization flow, reducing manual analysis time per VOD by 76\%.
+  \end{itemize}
+
+  {\bf Email Proof-of-Work Platform} \hfill {\sl JavaScript, Bun, WebGPU, SSE}
+  \begin{itemize}[itemsep=-7pt,topsep=-3pt]
+    \item Shipped an end-to-end proof-generation and verification app with browser CPU/GPU workers, server-side streaming progress, signed payloads, and automated tests.
+    \item Implemented auto backend selection (CPU/GPU) and streaming telemetry for mining sessions, improving proof-generation throughput by 43\% under benchmark workloads.
+  \end{itemize}
+\end{rSection}
 \end{document}
